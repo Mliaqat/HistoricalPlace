@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setCredentials } from "./authSlice";
+import { setCredentials } from "./visitedSlice";
 
 export const TAGS = ["data"];
-
 
 // Base Query
 const baseQuery = fetchBaseQuery({

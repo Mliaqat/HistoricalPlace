@@ -1,4 +1,3 @@
-import Header from "@/section/Header";
 import AllPlaces from "./view-all/page";
 
 export default function Home() {
@@ -9,10 +8,10 @@ export default function Home() {
           Welcome to Historical Places
         </h1>
         <p className="text-[1rem] lg:text-[1.5rem]">
-          Discover the world's most amazing historical sites
+          Discover the world&apos;s most amazing historical sites
         </p>
       </div>
-      <div className="">
+      <div>
         <AllPlaces />
       </div>
     </div>

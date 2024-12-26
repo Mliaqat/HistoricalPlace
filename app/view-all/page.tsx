@@ -11,7 +11,7 @@ interface HistoricalPlace {
 }
 
 export default function AllPlaces() {
-  const { data, error, isLoading } = useHistoricalDataQuery();
+  const { data, isLoading } = useHistoricalDataQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,7 +20,7 @@ export default function AllPlaces() {
   return (
     <div className="p-4 max-w-[1400px] mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data?.map((place:HistoricalPlace ) => (
+        {data?.map((place: HistoricalPlace) => (
           <div
             key={place.id}
             className="border rounded-lg overflow-hidden shadow-lg"
@@ -28,7 +28,7 @@ export default function AllPlaces() {
             <img
               src={place.image}
               alt={place.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover zoom transition-transform duration-300 ease-in-out"
             />
             <div className="p-4">
               <h2 className="text-xl font-bold">{place.name}</h2>

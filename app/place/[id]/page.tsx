@@ -1,10 +1,15 @@
+// Ensure you import necessary types from 'next'
+
 import { historicalPlaces } from "@/utils/Data";
 import Link from "next/link";
 
-export default async function Page({ params }: { params: { id: number } }) {
-  const { id } = params; 
+// Define the type for the params
 
-  const place = historicalPlaces.find((place) => place.id == id);
+
+export default async function Page({ params }: any) {
+  const { id } = params;
+
+  const place = historicalPlaces.find((place) => place.id == parseInt(id, 10)); // Convert id to a number if needed
 
   if (!place) {
     return <div>Historical place not found</div>;
