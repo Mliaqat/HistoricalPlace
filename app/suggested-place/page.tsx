@@ -73,7 +73,7 @@ function SuggestedPlaces() {
       <h1 className="text-2xl font-bold text-center">
         Explore Our Top Historical Destinations
       </h1>
-      <p className="text-gray-600 w-10/12 md:w-7/12 m-auto text-center mt-2">
+      <p className="text-gray-600 w-full md:w-7/12 m-auto text-center mt-2">
         Embark on a journey through time and uncover the hidden stories of the
         worlds most iconic historical sites, where every corner whispers a tale
         of the past
