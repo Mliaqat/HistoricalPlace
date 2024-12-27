@@ -1,22 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../services/visitedSlice";
+
 import { mainSlice } from "@/services/api";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-
-// Persist configuration for visited slice
-const visitedPersistConfig = {
-  key: "visited",
+import dataReducer from "../services/dataSlice";
+// Persist configuration for data slice
+const dataPersistConfig = {
+  key: "data",
   storage,
 };
 
 // Create a persisted reducer for the auth slice
-const persistedAuthReducer = persistReducer(visitedPersistConfig, authReducer);
+const persistedDataReducer = persistReducer(dataPersistConfig, dataReducer);
 
 export const store = configureStore({
   reducer: {
     [mainSlice.reducerPath]: mainSlice.reducer,
-    visited: persistedAuthReducer,
+    data: persistedDataReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

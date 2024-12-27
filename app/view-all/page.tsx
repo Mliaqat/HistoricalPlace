@@ -1,6 +1,8 @@
 "use client";
+import { setVisitedList } from "@/services/dataSlice";
 import { useHistoricalDataQuery } from "@/services/historicalData";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 
 interface HistoricalPlace {
   id: number;
@@ -12,9 +14,19 @@ interface HistoricalPlace {
 
 export default function AllPlaces() {
   const { data, isLoading } = useHistoricalDataQuery();
+  const visitedList = useSelector((state: any) => state.data.visitedList);
+  const dispatch = useDispatch();
+
+  const handleToggle = (id: any) => {
+    dispatch(setVisitedList({ id }));
+  };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center mt-8">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
@@ -31,7 +43,22 @@ export default function AllPlaces() {
               className="w-full h-48 object-cover zoom transition-transform duration-300 ease-in-out"
             />
             <div className="p-4">
-              <h2 className="text-xl font-bold">{place.name}</h2>
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold">{place.name}</h2>
+                <button
+                  type="button"
+                  onClick={() => handleToggle(place.id)}
+                  className={`${
+                    visitedList.includes(place.id)
+                      ? "border-rose-600 bg-rose-100 font-semibold rounded-full px-3 py-1"
+                      : "border-green-600 bg-green-100 font-semibold rounded-full px-3 py-1"
+                  } text-sm text-gray-700`}
+                >
+                  {visitedList.includes(place.id)
+                    ? "Visited"
+                    : "Already Visited"}
+                </button>
+              </div>
               <p className="text-gray-600">{place.location}</p>
               <p className="mt-2 clipped-text">{place.description}</p>
               <Link

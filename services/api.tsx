@@ -1,20 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setCredentials } from "./visitedSlice";
 
-export const TAGS = ["data"];
+export const TAGS = ["historyData"];
 
-// Base Query
-const baseQuery = fetchBaseQuery({
+// Base URL 
+const mainQuery = fetchBaseQuery({
   baseUrl: "",
   credentials: "include",
   prepareHeaders: (headers, { getState }: any) => {
-    const token: any = getState().auth.token;
+    const token: any = getState().data.token;
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
     return headers;
   },
 });
+
+
 
 const baseQueryWithReAuth =
   (baseQuery: any) => async (args: any, api: any, extraOptions: any) => {
@@ -26,12 +27,12 @@ const baseQueryWithReAuth =
         const refreshResult = await baseQuery("/refresh", api, extraOptions);
 
         if (refreshResult?.data) {
-          const user = api.getState().auth.user;
+          const user = api.getState().data.user;
           // Store the new token
-          api.dispatch(setCredentials({ ...refreshResult.data, user }));
+          // api.dispatch(setCredentials({ ...refreshResult.data, user }));
 
           // Retry the original query with new access token
-          result = await baseQuery(args, api, extraOptions);
+          // result = await baseQuery(args, api, extraOptions);
         } else {
           api.dispatch(logOut());
         }
@@ -44,12 +45,17 @@ const baseQueryWithReAuth =
     }
   };
 
+// Create API slices for each base URL
+
+
 export const mainSlice: any = createApi({
   reducerPath: "mainApi",
   tagTypes: TAGS,
-  baseQuery: baseQueryWithReAuth(baseQuery),
+  baseQuery: baseQueryWithReAuth(mainQuery),
   endpoints: (builder) => ({}),
 });
+
+
 
 function logOut(): any {
   throw new Error("Function not implemented.");
