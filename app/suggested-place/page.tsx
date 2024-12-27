@@ -24,6 +24,8 @@ function SuggestedPlaces() {
     setRandomPlaces(places);
   }, [visitedPlaces]);
 
+  console.log(randomPlaces);
+
   return (
     <div className="max-w-[1400px] mx-auto p-6">
       <nav className="flex mb-4" aria-label="Breadcrumb">
@@ -80,31 +82,37 @@ function SuggestedPlaces() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
-        {randomPlaces?.map((place: any) => (
-          <div
-            key={place.id}
-            className="border rounded-lg overflow-hidden shadow-lg"
-          >
-            <img
-              src={place.image}
-              alt={place.name}
-              className="w-full h-48 object-cover zoom transition-transform duration-300 ease-in-out"
-            />
-            <div className="p-4">
-              <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">{place.name}</h2>
+        {randomPlaces.length > 0 ? (
+          randomPlaces?.map((place: any) => (
+            <div
+              key={place.id}
+              className="border rounded-lg overflow-hidden shadow-lg"
+            >
+              <img
+                src={place.image}
+                alt={place.name}
+                className="w-full h-48 object-cover zoom transition-transform duration-300 ease-in-out"
+              />
+              <div className="p-4">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-bold">{place.name}</h2>
+                </div>
+                <p className="text-gray-600">{place.location}</p>
+                <p className="mt-2 clipped-text">{place.description}</p>
+                <Link
+                  href={`/place/${place.id}`}
+                  className="flex justify-end text-sm mt-1 text-blue"
+                >
+                  View Details
+                </Link>
               </div>
-              <p className="text-gray-600">{place.location}</p>
-              <p className="mt-2 clipped-text">{place.description}</p>
-              <Link
-                href={`/place/${place.id}`}
-                className="flex justify-end text-sm mt-1 text-blue"
-              >
-                View Details
-              </Link>
             </div>
+          ))
+        ) : (
+          <div className="text-gray-700 text-center md:col-span-2 lg:col-span-3 my-6">
+            You have already visited all the places we offer!
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
